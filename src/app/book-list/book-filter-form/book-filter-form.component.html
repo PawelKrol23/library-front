@@ -1,0 +1,32 @@
+<form [formGroup]="bookFilterForm" (ngSubmit)="onSubmit()">
+    <label for="title">Title</label>
+    <input id="title" formControlName="title">
+    <label for="isbn">Isbn</label>
+    <input id="isbn" formControlName="isbn">
+    <label for="createdAtAfter">Created at after</label>
+    <input id="createdAtAfter" type="datetime" formControlName="createdAtAfter">
+    <label for="createdAtBefore">Created at before</label>
+    <input id="createdAtBefore" type="datetime" formControlName="createdAtBefore">
+    <label for="borrowerId">Borrower</label>
+    <select id="borrowerId" formControlName="borrowerId">
+        <option value=""></option>
+        @for (member of members; track member.id) {
+            <option [value]="member.id">{{ member.id + ', ' + member.firstName + ' ' + member.lastName }}</option>
+        }
+    </select>
+    <label for="authorId">Author</label>
+    <select id="authorId" formControlName="authorId">
+        <option value=""></option>
+        @for (author of authors; track author.id) {
+            <option [value]="author.id">{{ author.id + ', ' + author.firstName + ' ' + author.lastName }}</option>
+        }
+    </select>
+    <label for="sort">Sort by</label>
+    <select id="sort" formControlName="sort">
+        <option value=""></option>
+        @for (field of fieldsToSort; track field) {
+            <option [value]="field">{{field}}</option>
+        }
+    </select>
+    <button type="submit">Filter</button>
+</form>

@@ -1,0 +1,18 @@
+<form [formGroup]="authorFilterForm" (ngSubmit)="onSubmit()">
+    <label for="firstName">First name</label>
+    <input id="firstName" formControlName="firstName">
+    <label for="lastName">Last name</label>
+    <input id="lastName" formControlName="lastName">
+    <label for="createdAtAfter">Created at after</label>
+    <input id="createdAtAfter" type="datetime" formControlName="createdAtAfter">
+    <label for="createdAtBefore">Created at before</label>
+    <input id="createdAtBefore" type="datetime" formControlName="createdAtBefore">
+    <label for="sort">Sort by</label>
+    <select id="sort" formControlName="sort">
+        <option value=""></option>
+        @for (field of fieldsToSort; track field) {
+            <option [value]="field">{{field}}</option>
+        }
+    </select>
+    <button type="submit">Filter</button>
+</form>

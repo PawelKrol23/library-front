@@ -1,0 +1,7 @@
+<form [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+    <label for="firstName">First name</label>
+    <input id="firstName" formControlName="firstName">
+    <label for="lastName">Last name</label>
+    <input id="lastName" formControlName="lastName">
+    <button type="submit" [disabled]="authorForm.invalid">{{authorId === -1 ? 'Add new' : 'Edit author'}}</button>
+</form>

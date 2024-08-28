@@ -1,0 +1,40 @@
+<button type="button" routerLink="/books/add">Add new Book</button>
+<button type="button" (click)="onExportToCsvClick()">Export to csv</button>
+<button type="button" (click)="onExportToExcelClick()">Export to Excel</button>
+<br>
+<input type="file" accept=".csv" #csvFileInput>
+<button type="button" (click)="onImportFromCsvClick(csvFileInput)">Import from csv</button>
+<br>
+<input type="file" accept=".xlsx" #excelFileInput>
+<button type="button" (click)="onImportFromExcelClick(excelFileInput)">Import from Excel</button>
+<app-book-filter-form (filter)="onBooksFilter($event)"></app-book-filter-form>
+
+@if (page) {
+    <table border="1">
+        <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Isbn</td>
+            <td>Created at</td>
+            <td>Last modified at</td>
+            <td>Borrower Id</td>
+            <td>Author Id</td>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
+        @for (book of books | paginate: { itemsPerPage: page.size, currentPage: page.number, totalItems: page.totalElements }; track book.id) {
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.createdAt }}</td>
+                <td>{{ book.lastModifiedAt }}</td>
+                <td>{{ book.borrowerId }}</td>
+                <td>{{ book.authorId }}</td>
+                <td><button type="button" (click)="onDeleteClick(book.id)">Delete</button></td>
+                <td><button type="button" (click)="onEditClick(book.id)">Edit</button></td>
+            </tr>
+        }
+    </table>
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+}

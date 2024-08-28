@@ -1,0 +1,9 @@
+<form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+    <label for="firstName">First name</label>
+    <input id="firstName" formControlName="firstName">
+    <label for="lastName">Last name</label>
+    <input id="lastName" formControlName="lastName">
+    <label for="email">Email</label>
+    <input id="email" formControlName="email">
+    <button type="submit" [disabled]="memberForm.invalid">{{memberId === -1 ? 'Add new' : 'Edit member'}}</button>
+</form>

@@ -1,0 +1,38 @@
+<button type="button" routerLink="/members/add">Add new Member</button>
+<button type="button" (click)="onExportToCsvClick()">Export to csv</button>
+<button type="button" (click)="onExportToExcelClick()">Export to Excel</button>
+<br>
+<input type="file" accept=".csv" #csvFileInput>
+<button type="button" (click)="onImportFromCsvClick(csvFileInput)">Import from csv</button>
+<br>
+<input type="file" accept=".xlsx" #excelFileInput>
+<button type="button" (click)="onImportFromExcelClick(excelFileInput)">Import from Excel</button>
+<app-member-filter-form (filter)="onMembersFilter($event)"></app-member-filter-form>
+
+@if (page) {
+    <table border="1">
+        <tr>
+            <td>Id</td>
+            <td>First name</td>
+            <td>Last name</td>
+            <td>Email</td>
+            <td>Created at</td>
+            <td>Last modified at</td>
+            <td>Delete</td>
+            <td>Edit</td>
+        </tr>
+        @for (member of members | paginate: { itemsPerPage: page.size, currentPage: page.number, totalItems: page.totalElements }; track member.id) {
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.firstName }}</td>
+                <td>{{ member.lastName }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.createdAt }}</td>
+                <td>{{ member.lastModifiedAt }}</td>
+                <td><button type="button" (click)="onDeleteClick(member.id)">Delete</button></td>
+                <td><button type="button" (click)="onEditClick(member.id)">Edit</button></td>
+            </tr>
+        }
+    </table>
+    <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+}

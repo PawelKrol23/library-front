@@ -1,0 +1,21 @@
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <label for="title">Title</label>
+    <input id="title" formControlName="title">
+    <label for="isbn">Isbn</label>
+    <input id="isbn" formControlName="isbn">
+    <label for="borrowerId">Borrower</label>
+    <select id="borrowerId" formControlName="borrowerId">
+        <option value=""></option>
+        @for (member of members; track member.id) {
+            <option [value]="member.id">{{ member.id + ', ' + member.firstName + ' ' + member.lastName }}</option>
+        }
+    </select>
+    <label for="authorId">Author</label>
+    <select id="authorId" formControlName="authorId">
+        <option value=""></option>
+        @for (author of authors; track author.id) {
+            <option [value]="author.id">{{ author.id + ', ' + author.firstName + ' ' + author.lastName }}</option>
+        }
+    </select>
+    <button type="submit" [disabled]="bookForm.invalid">{{bookId === -1 ? 'Add new' : 'Edit book'}}</button>
+</form>
